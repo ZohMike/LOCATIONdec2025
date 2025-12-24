@@ -2,12 +2,14 @@ services:
   - type: web
     name: photoflow
     runtime: static
-    buildCommand: npm install && npm run build
+    buildCommand: rm -f pnpm-lock.yaml && npm install --legacy-peer-deps && npm run build
     staticPublishPath: ./dist
     pullRequestPreviewsEnabled: true
     envVars:
       - key: NODE_VERSION
         value: 20
+      - key: SKIP_INSTALL_DEPS
+        value: "true"
     headers:
       - path: /*
         name: Cache-Control
